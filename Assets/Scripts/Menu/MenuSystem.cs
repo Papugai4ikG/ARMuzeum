@@ -1,9 +1,12 @@
+using System;
+using System.Net.Mime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.Networking;
+using TMPro;
 public class MenuSystem : MonoBehaviour
 {
     [SerializeField]
@@ -20,7 +23,7 @@ public class MenuSystem : MonoBehaviour
     RawImage image;
     List<GameObject> gameObjects = new List<GameObject>();
     JsonMuzeumsList imageTracking = new JsonMuzeumsList();
-    Text header;
+    TMP_Text header;
     private async void Start()
     {
         string url = "https://dl.dropboxusercontent.com/s/ml84cy8k44cwdgv/muzeumJson.json";
@@ -36,7 +39,7 @@ public class MenuSystem : MonoBehaviour
             var go = Instantiate(spawnMuz, pos);
             gameObjects.Add(go);
             image = go.GetComponentInChildren<RawImage>();
-            header = go.GetComponentInChildren<Text>();
+            header = go.GetComponentInChildren<TMP_Text>();
             image.texture = await _imageDownload.LoadImageWeb(item.url_image);
             header.text = item.header;
             go.GetComponent<Button>().onClick.AddListener(()=>
@@ -50,9 +53,12 @@ public class MenuSystem : MonoBehaviour
 
     public void Search(GameObject gameObject)
     {
-        buttVse.GetComponentInChildren<Text>().color = new Color(0, 0, 0, 0.5f);
-        var text = gameObject.GetComponentInChildren<Text>();
-        var image = gameObject.GetComponent<Image>();
+        //D9D9D9
+        buttVse.GetComponentInChildren<TMP_Text>().color = new Color(0, 0, 0, 0.5f);
+        buttVse.GetComponent<Unity.VectorGraphics.SVGImage>().color = new Color(0.8509804f,0.8509804f,0.8509804f,1f);
+        var text = gameObject.GetComponentInChildren<TMP_Text>();
+        var image = gameObject.GetComponent<Unity.VectorGraphics.SVGImage>();
+        image.color = new Color(1,1,1,1);
         text.color = new Color(0, 0, 0, 1);
         buttVse = gameObject;
         if (text.text !="Все")
@@ -60,8 +66,9 @@ public class MenuSystem : MonoBehaviour
             {
                 foreach (var city in imageTracking.muzeums)
                 {
-                    if (city.city == text.text&&item.GetComponentInChildren<Text>().text == city.header)
+                    if (city.city == text.text&&item.GetComponentInChildren<TMP_Text>().text == city.header)
                     {
+                        
                         item.SetActive(true);
                         break;
                     }

@@ -1,6 +1,7 @@
 
 public class QuestCode
 {
+    QuestBrouler morse = new QuestBrouler();
     //
     QuestAlphabet questAlphabet=new QuestAlphabet();
     //
@@ -14,4 +15,5 @@ public class QuestCode
     public QuestClaviature QuestClaviature { get => questClaviature; }
     public QuestCalendare QuestCalendare { get => questCalendare; }
     public QuestCaesar QuestCaesar { get => questCaesar; }
+    public QuestBrouler QuestBrouler{get=>morse;}
 }

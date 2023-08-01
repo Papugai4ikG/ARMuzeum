@@ -66,7 +66,7 @@ public class LoadFromFile
     public async Task <byte[]> LoadFileWeb(string url)
     {
         try{
-            using var www = UnityWebRequest.Get("file:///"+url);
+            using var www = UnityWebRequest.Get(url);
 
             var operation = www.SendWebRequest();
             

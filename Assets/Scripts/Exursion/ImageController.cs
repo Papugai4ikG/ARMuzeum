@@ -3,36 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.Networking;
+using TMPro;
 
 public class ImageController : MonoBehaviour
 {
     AudioImporter audioImporter;
-    GameObject panel = null;
     Info frontend = new Info();
     ImageTrackings backendJSON = new ImageTrackings();
     Texture image = null;
+    GameObject _point;
 
-    public void InfoCreater(GameObject menu,Info info,ImageTrackings trackings,Texture images,AudioImporter import)
+    Vector3 _pointV= new Vector3(8,8,8);
+
+    public void InfoCreater(Info info,ImageTrackings trackings,Texture images,AudioImporter import,GameObject point)
     {
-        panel = menu;
         frontend = info;
         backendJSON = trackings;
         image = images;
         audioImporter=import;
+        _point = point;
     }
     private void OnEnable()
     {
-        if (panel == null)
-            return;
+        if (_point ==null) return;
+        _point.SetActive(true);
         InfoStart();
-        panel.SetActive(true);
         frontend.panel.SetActive(false);
     }
     private void OnDisable()
     {
-        if (panel == null)
-            return;
-        panel.SetActive(false);
+        if (_point==null) return;
+        _point.SetActive(false);
         frontend.panel.SetActive(true);
     }
     void  InfoStart()
@@ -62,7 +63,7 @@ public class ImageController : MonoBehaviour
             else
                 frontend.VideoPanel.SetActive(false);
             audioImporter.Import(path +"/"+ backendJSON.audioRu);
-            if (frontend.audio.clip != null)
+            if (backendJSON.audioRu != null)
                 frontend.AudioPanel.SetActive(true);
             else
                 frontend.AudioPanel.SetActive(false);
@@ -91,13 +92,30 @@ public class ImageController : MonoBehaviour
                 frontend.VideoPanel.SetActive(false);
 
             audioImporter.Import(path +"/"+ backendJSON.audioEn);
-            if (frontend.audio.clip != null)
+            if (backendJSON.audioEn != null)
                 frontend.AudioPanel.SetActive(true);
             else
                 frontend.AudioPanel.SetActive(false);
         }
     }
 
+    private void Update() {
+        if(_point.activeSelf==false)
+            return;
+        _point.transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z-2);
+        float distance = Vector3.Distance(Camera.main.transform.position, transform.position);
+        Debug.Log(distance);
+        if(distance>500)
+            {
+                _point.transform.localScale = _pointV;
+                _point.transform.localScale = 
+                new Vector3(_point.transform.localScale.x+4,
+                        _point.transform.localScale.y+4,
+                        _point.transform.localScale.z+4);
+            }
+        else
+            _point.transform.localScale = new Vector3(8,8,8);
+    }
     void OnLoaded(AudioClip clip)
     {
         frontend.audio.clip = clip;

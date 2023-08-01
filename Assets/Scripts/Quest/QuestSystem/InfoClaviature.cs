@@ -1,7 +1,7 @@
 
 public class InfoClaviature{
     private string alphabetKlav = "йцукенгшщзхъфывапролджэячсмитьбю";
-    private string alphabetENG = "qwertymuiop[]asdfghjkl;'zxcvbnm,.";
+    private string alphabetENG = "qwertyuiop[]asdfghjkl;'zxcvbnm,.";
     private string[][] alphabetNum = new string[3][];
     private char[] alphabetChar = new char[32];
     private char[] alphabetENGChar = new char[32];

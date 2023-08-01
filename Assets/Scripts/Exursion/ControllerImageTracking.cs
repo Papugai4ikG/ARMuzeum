@@ -4,9 +4,12 @@ using System.IO.Compression;
 using easyar;
 using System.IO;
 using System;
+using TMPro;
 
 public class ControllerImageTracking : MonoBehaviour
 {
+    [SerializeField]
+    GameObject point;
     [SerializeField]
     AudioImporter audioImporter;
     [Header("Краткая информация об объектах")]
@@ -108,9 +111,8 @@ public class ControllerImageTracking : MonoBehaviour
                                     path+ "/Excursion/imageTracking/" + imageTracking.Image[i].imageTracking+ ".jpg",
                                     imageTrackerFrame);
             imageTrackerFrame.LoadTarget(go.GetComponent<ImageTargetController>());
-
             sprite = file.LoadImageFile(path+"/" +imageTracking.Image[i].imageUrl);
-            go.AddComponent<ImageController>().InfoCreater(panelInfo, Info, imageTracking.Image[i],sprite,audioImporter);
+            go.AddComponent<ImageController>().InfoCreater(Info, imageTracking.Image[i],sprite,audioImporter,point);
             SpawnInformation(sprite, imageTracking.Image[i].headerRu, imageTracking.Image[i].despRu);
         }
         panelLoad.SetActive(false);
@@ -125,7 +127,7 @@ public class ControllerImageTracking : MonoBehaviour
     private async void  JSON()
     {
         var jsonClient = new GetSetJsonFile(new JsonSerializationOption());
-        imageTracking = await jsonClient.JSON<ImageTrackingList>(Application.persistentDataPath + "/Resources/muzeum/"+ PlayerPrefs.GetString("name")+ "/Excursion/ImageTracking.json");
+        imageTracking = await jsonClient.JSON<ImageTrackingList>("file://"+Application.persistentDataPath + "/Resources/muzeum/"+ PlayerPrefs.GetString("name")+ "/Excursion/ImageTracking.json");
         CreaterImageTrackings();
     }
 
@@ -138,8 +140,8 @@ public class ControllerImageTracking : MonoBehaviour
 public class Info
 {
     public RawImage[] Image;
-    public Text[] header;
-    public Text[] desctop;
+    public TMP_Text[] header;
+    public TMP_Text[] desctop;
     public AudioSource audio;
     public UnityEngine.Video.VideoPlayer clip;
     public GameObject VideoPanel;

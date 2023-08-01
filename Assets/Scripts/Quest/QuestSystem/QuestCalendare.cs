@@ -4,7 +4,7 @@ using System;
 public class QuestCalendare 
 {
     string infoQuest="Заменяет каждую букву текста на день недели какого-либо месяца, согласно порядковому номеру этой буквы в алфавите. Соответствующий месяц в году и является ключом к ответу.";
-    string result;
+    string result = "";
     int count =0;
     InfoAlphabet info = new InfoAlphabet();
 
@@ -12,6 +12,7 @@ public class QuestCalendare
 
     public string GetCalendare(string name) 
     {
+        result = "";
         DateTime date = DateTime.Now;
         DateTime date2 = new DateTime(date.Year,date.Month,date.Day);
         int dateCount = DateTime.DaysInMonth(date.Year,date.Month);

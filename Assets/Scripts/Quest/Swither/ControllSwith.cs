@@ -19,6 +19,9 @@ public class ControllSwith : MonoBehaviour
     {
         if(_panel.GetComponent<RectTransform>().sizeDelta.x<=0 && texture !=null){
             _panel.GetComponent<RectTransform>().sizeDelta = targetController.Size;
+            var x = targetController.Size.x/3;
+            var y = targetController.Size.y/3;
+            gameObject.GetComponent<UnityEngine.UI.GridLayoutGroup>().cellSize = new Vector2(x,y);
         }
     }
     public void CheckPosition()

@@ -7,8 +7,9 @@ public class OnLoadTargetImage : MonoBehaviour
     GameObject obj;
     void  OnEnable()
     {
-        if (!GetComponentInChildren<Canvas>()||!GetComponentInChildren<Canvas>().gameObject.activeSelf)
+        if (!GetComponentInChildren<Canvas>())
         {
+            Debug.Log("ERROR");
             return;
         }
         if(obj == null)

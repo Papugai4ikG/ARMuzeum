@@ -1,7 +1,7 @@
 public class QuestClaviature
 {
-    string infoQuest="Заменяет каждую русскую букву на английскую, расположенную с ней на одной клавише или на месторасположение этой клавиши на клавиатуре (ряд и порядковый номер в ряду).";
-    string result;
+    string infoQuest="Заменяет каждую анлийскую букву на русскую, расположенную с ней на одной клавише или на месторасположение этой клавиши на клавиатуре (ряд и порядковый номер в ряду).";
+    string result ="";
     InfoClaviature info = new InfoClaviature();
 
     public string InfoQuest { get => infoQuest; }
@@ -24,6 +24,7 @@ public class QuestClaviature
     }
     public string ClaviatureENG(string name)
     {
+        result = "";
         var count = SearchOption(name);
         foreach (var item in count)
         {
@@ -33,19 +34,23 @@ public class QuestClaviature
     }
     public string ClaviatureNum(string name)
     {
+        result = "";
         var count = SearchOption(name);
         foreach (var item in count)
         {
-            var num=0;
+            int num = 0;
             for (int k = 0; k < info.GetNum().Length; k++)
             {
-                if(item-(info.GetNum()[k].Length+num)<0)
+                int n = item-(info.GetNum()[k].Length);
+                num +=info.GetNum()[k].Length;
+                if (k!=0)
                 {
-                    result+=info.GetNum()[k][item-(num+k)]+" ";//19-11+1=7
+                    n = item-(num);
+                }
+                if(n<=0)//19-(12+11)=-4
+                {
+                    result+=info.GetNum()[k][((info.GetNum()[k].Length+n))]+" ";//11-3-1=7
                     break;
-                }else
-                {
-                    num+=info.GetNum()[k].Length-1;
                 }
             }
         }

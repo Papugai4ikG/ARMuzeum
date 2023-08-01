@@ -2,17 +2,16 @@
 using System;
 public class QuestWordNumber  
 {
-    string result;
+    string result = "";
     int[] lengthName;
 
     public string GetWordNumber(string name)
     {
-        lengthName = new int[name.Length];
+        result = "";
         Random random = new Random();
-        for (int i=0;i<lengthName.Length;i++)
+        for (int i=0;i<name.Length;i++)
         {
-            lengthName[i]=random.Next(0,2);
-            switch (lengthName[i])
+            switch (random.Next(0,2))
             {
                 case 0 :
                 result+=name[i];

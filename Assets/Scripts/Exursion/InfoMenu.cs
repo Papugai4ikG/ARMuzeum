@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class InfoMenu : MonoBehaviour
 {
     [SerializeField]
-    Text header, desp,address;
+    TMP_Text header, desp,address;
     [SerializeField]
     RawImage image;
     [SerializeField]
@@ -16,7 +17,7 @@ public class InfoMenu : MonoBehaviour
         this.header.text = item.header;
         this.desp.text = item.desp;
         image.texture = texture;
-        this.address.text ="Адрес: " + address;
+        this.address.text ="Адрес: " + item.adress;
         if (item.url_zip_quest == "")
             quest.SetActive(false);
         else
